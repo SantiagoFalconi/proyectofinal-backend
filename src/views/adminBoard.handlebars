@@ -1,0 +1,30 @@
+<h1>Administrador</h1>
+{{#each users}}
+    <div id="usersTable">
+        <h4>USERNAME: {{this.last_name}} {{this.first_name}} </h4>
+        <h4>ROL: {{this.role}}</h4>
+        <button onclick="rolChange('{{this._id}}')">Cambiar de rol</button>
+        <button onclick="userDelete('{{this._id}}')">Eliminar usuario</button>
+    </div>
+{{/each}}
+
+<script>
+    function rolChange(userId) {
+        fetch(`/api/users/premium/${userId}`, {
+            method: 'PUT',
+            }).then(response => {
+            if (response.ok) {
+                location.reload()
+            }
+        });
+    }
+    function userDelete(userId) {
+        fetch(`/api/users/delete/${userId}`, {
+            method: 'DELETE',
+        }).then(response => {
+            if (response.ok) {
+                location.reload()
+            }
+        });
+    }   
+</script>
